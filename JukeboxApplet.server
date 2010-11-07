@@ -1,0 +1,27 @@
+<oaf_info>
+<oaf_server iid="OAFIID:JukeboxApplet_Factory"
+            type="exe" location="jukeboxapplet.py">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:Bonobo/GenericFactory:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Jukebox Applet"/>
+        <oaf_attribute name="description" type="string" value="Show currently playing track"/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:JukeboxApplet"
+            type="factory" location="OAFIID:JukeboxApplet_Factory">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+                <item value="IDL:Bonobo/Control:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Jukebox Applet"/>
+        <oaf_attribute name="description" type="string" value="Show currently playing track"/>
+        <oaf_attribute name="panel:category" type="string" value="Utility"/>
+        <oaf_attribute name="panel:icon" type="string" value="bug-buddy.png"/>
+</oaf_server>
+</oaf_info>
+
