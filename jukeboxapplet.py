@@ -47,8 +47,26 @@ class JukeboxApplet(object):
         if queue['status'] == 'playing':
             return format_track_info(queue['info'])
         return "Jukebox idle"
-        
-gnomeapplet.bonobo_factory("OAFIID:JukeboxApplet_Factory",
-                            gnomeapplet.Applet.__gtype__,
-                            "Jukebox Applet", "0.1", JukeboxApplet)
+
+def run_in_window():
+    main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+    main_window.set_title('Jukebox Applet')
+    main_window.connect("destroy", gtk.mainquit)
+    app = gnomeapplet.Applet()
+    JukeboxApplet(app, None)
+    app.reparent(main_window)
+    main_window.show_all()
+    gtk.main()
+
+def main():
+    import sys
+    if len(sys.argv) == 2 and sys.argv[1] in ('-w', '--windowed'):
+        run_in_window()
+    else:
+        gnomeapplet.bonobo_factory("OAFIID:JukeboxApplet_Factory",
+                                    gnomeapplet.Applet.__gtype__,
+                                    "Jukebox Applet", "0.1", JukeboxApplet)
+
+if __name__ == '__main__':
+    main()
 
