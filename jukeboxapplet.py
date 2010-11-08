@@ -5,6 +5,7 @@ pygtk.require('2.0')
 
 import gtk
 import gnomeapplet
+import gobject
 import jsonrpc
 
 RPC_ADDR = "http://jukebox:8888/rpc/jukebox"
@@ -23,17 +24,16 @@ class JukeboxApplet(object):
         self.proxy = jsonrpc.ServiceProxy(RPC_ADDR)
 
         self.label = gtk.Label()
-        self.tooltips = gtk.Tooltips()
         applet.add(self.label)
         applet.show_all()
         
         self.set_text()
-        gtk.timeout_add(TIMEOUT_MS, self.set_text)
+        gobject.timeout_add(TIMEOUT_MS, self.set_text)
 
     def set_text(self):
         status = self.get_status()
         self.label.set_text(pretty_trim(status))
-        self.tooltips.set_tip(self.label, status)
+        self.label.set_tooltip_text(status)
         return True
 
     def get_queue(self):
