@@ -31,13 +31,9 @@ class JukeboxApplet(object):
         gobject.timeout_add(TIMEOUT_MS, self.set_text)
 
     def set_text(self):
-        try:
-            status = self.get_status()
-        except KeyError:
-            pass
-        else:
-            self.label.set_text(pretty_trim(status))
-            self.label.set_tooltip_text(status)
+        status = self.get_status()
+        self.label.set_text(pretty_trim(status))
+        self.label.set_tooltip_text(status)
         return True
 
     def get_queue(self):
@@ -55,7 +51,7 @@ class JukeboxApplet(object):
         except KeyError, e:
             print repr(e)
             print repr(queue)
-            raise
+            return "Could not get track info"
         return "Jukebox idle"
 
 def run_in_window():
