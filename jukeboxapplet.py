@@ -57,7 +57,7 @@ class JukeboxApplet(object):
 def run_in_window():
     main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
     main_window.set_title('Jukebox Applet')
-    main_window.connect("destroy", gtk.mainquit)
+    main_window.connect("destroy", gtk.main_quit)
     app = gnomeapplet.Applet()
     JukeboxApplet(app, None)
     app.reparent(main_window)
