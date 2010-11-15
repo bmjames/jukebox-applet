@@ -77,7 +77,6 @@ def run_in_window():
 
 def main():
     from optparse import OptionParser
-    import sys
 
     parser = OptionParser()
     parser.add_option("-w", "--windowed", dest="windowed", default=False,
