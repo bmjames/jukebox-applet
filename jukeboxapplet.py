@@ -76,30 +76,25 @@ def run_in_window():
     gtk.main()
 
 def main():
-    import getopt
+    from optparse import OptionParser
     import sys
 
-    # default options
-    loglevel, windowed = logging.INFO, False
+    parser = OptionParser()
+    parser.add_option("-w", "--windowed", dest="windowed", default=False,
+                      action="store_true", help="run windowed")
+    parser.add_option("--loglevel", dest="loglevel", default="ERROR",
+                      help="set logging level to LOGLEVEL",
+                      metavar="LOGLEVEL")
+    opts, _args = parser.parse_args()
 
-    try:
-        optlist, _args = getopt.getopt(sys.argv[1:], 'w', ['windowed', 'loglevel='])
-        for opt, arg in optlist:
-            if opt == '--loglevel':
-                loglevel = {'debug': logging.DEBUG,
-                    'info': logging.INFO,
-                    'warning': logging.WARNING,
-                    'error': logging.ERROR,
-                    'critical': logging.CRITICAL}.get(arg.lower(), logging.NOTSET)
-            if opt in ('-w', '--windowed'):
-                windowed = True
-    except getopt.GetoptError as getopt_error:
-        # probably caused by GNOME passing an option we didn't expect
-        LOGGER.debug(getopt_error)
+    levels = {'DEBUG': logging.DEBUG,
+              'INFO': logging.INFO,
+              'WARNING': logging.WARNING,
+              'ERROR': logging.ERROR,
+              'CRITICAL': logging.CRITICAL}
+    LOGGER.setLevel(levels.get(opts.loglevel, logging.NOTSET))
 
-    LOGGER.setLevel(loglevel)
-
-    if windowed:
+    if opts.windowed:
         LOGGER.info("Starting jukebox applet windowed")
         run_in_window()
     else:
