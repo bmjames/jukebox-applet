@@ -84,6 +84,8 @@ def main():
     parser.add_option("--loglevel", dest="loglevel", default="ERROR",
                       help="set logging level to LOGLEVEL",
                       metavar="LOGLEVEL")
+    parser.add_option("--oaf-activate-iid", dest="iid", default=None)
+    parser.add_option("--oaf-ior-fd", dest="fd", default=None)
     opts, _args = parser.parse_args()
 
     levels = {'DEBUG': logging.DEBUG,
