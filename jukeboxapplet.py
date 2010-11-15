@@ -52,7 +52,7 @@ class JukeboxApplet(object):
             queue = self.get_queue()
             LOGGER.debug("Got queue info: %s", queue)
         except Exception, e:
-            LOGGER.error(" error: %", e)
+            LOGGER.error("JSON-RPC error: %s", e)
             return "Could not connect to jukebox"
         try:
             if queue['status'] == 'playing':
